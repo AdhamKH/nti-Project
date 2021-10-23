@@ -7,5 +7,6 @@ router.post("/register",userController.register)
 
 router.post("/login",userController.login)
 router.get("/profile",auth,userController.profile)
+router.put("/addToCart/:id",userController.addToCart)
 
 module.exports = router

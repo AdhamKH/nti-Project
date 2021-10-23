@@ -5,7 +5,7 @@ router.get("/all",adminController.showall)
 router.delete("/delete/:id",adminController.del)
 router.get("/single/:id",adminController.showSingle)
 router.post("/Addproduct",adminController.addproduct)
- 
+router.put("/addsameproduct/:id",adminController.addsameproduct)
 
 
 module.exports = router

@@ -4,72 +4,23 @@ var bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 
 const userSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        trim: true,
-        minlenght: 6,
-        maxlength: 25,
-        required: true
-    },
-    lastName: {
-        type: String,
-        trim: true,
-        minlenght: 6,
-        maxlength: 25,
-        required: true
-    },
-
-    email: {
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
-        validate(value) {
-            if (!validator.isEmail(value)) throw new Error("Invalid Email")
-        }
-    },
-    age: {
-        type: Number,
-        required: true,
-        validate(value) {
-            if (value < 21) throw new Error('Age must be older than 21')
-        }
-    },
-    phone: {
-        type: Number,
-        // required:true,
-        validate(value) {
-            if (!validator.isMobilePhone(value, ['ar-EG'])) throw new Error("phone no is not Corect")
-        }
-    },
-    password: {
-        type: String,
-        trim: true,
-        required: true,
-        minlenght: 6,
-        maxlength: 100
+    name:{
+        type:String,
+        trim:true,
 
     },
-    gender: {
-        type: String,
-        trim: true,
-        enum: ['male', 'female'],
-        required: true
+    type:{
+        type:String,
+        trim:true,
+        enum:['Men','Woman','Kids']
     },
-    status: {
-        type: Boolean,
-        default: false
+    quantity:{
+        type:Number
     },
-    userType: {
-        type: String, //1 admin 0 user
-        enum: ["admin", "user"]
-    },
-    tokens: [{
-        token: {
-            type: String,
-            required: true
-        }
-    }]
+    color:{
+        type:String,
+        trim:true
+    }, 
 }, {
     timestamps: true
 })

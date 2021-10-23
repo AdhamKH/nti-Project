@@ -35,14 +35,26 @@ class adminController{
         static addproduct=async(req,res)=>{
             try{
             let category= new Category(req.body)
-            req.category.colors.push(req.body)
             await category.save()
-            await req.category.save()
             res.status(200).send({apistatus:true,data:category,message:"Added"})
         }
         catch(e){
             res.status(500).send({apistatus:false,data:e.message,message:"Error"})
         }
+        }
+        // add same product
+        static addsameproduct=async(req,res)=>{
+            let enteredquantity=req.body.quantity
+            let categoryID=req.params.id
+            const foundproduct= await Category.findById(categoryID)
+            console.log(foundproduct)
+            try{
+                const category=await Category.findOneAndUpdate({_id:categoryID},{ $inc: { quantity: +enteredquantity } })
+                res.status(200).send({apistatus:true,data:category,message:"Added"})
+            }
+            catch(e){
+                res.status(500).send({apistatus:false,data:e.message,message:"Error"})
+            }
         }
 }
 

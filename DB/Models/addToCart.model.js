@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
-const categorySchema = new mongoose.Schema({
 
+const addToCartSchema = new mongoose.Schema({
     name:{
         type:String,
         trim:true,
@@ -15,11 +16,6 @@ const categorySchema = new mongoose.Schema({
     quantity:{
         type:Number
     },
-    price:{
-        type:Number,
-        trim:true,
-        // required:true
-    },
     color:{
         type:String,
         trim:true
@@ -27,13 +23,18 @@ const categorySchema = new mongoose.Schema({
     image:{
         type:String,
         
-    }
-
-
+    },
+},
+ {
+    
+    timestamps: true
 })
 
 
 
-const Category = mongoose.model('Category', categorySchema)
 
-module.exports = Category
+//generate token
+
+
+const addToCart = mongoose.model('addToCart', addToCartSchema)
+module.exports = addToCart

@@ -1,5 +1,7 @@
 const User = require("../DB/Models/user.model")
-
+const Category= require("../DB/Models/category.model")
+const addToCart=require("../DB/Models/addToCart.model")
+const Invoice=require("../DB/Models/invoice.model")
 class Usercontroller{
     // Resgister User
     static register=async(req,res)=>{
@@ -30,6 +32,26 @@ class Usercontroller{
             // data:req.user ,
             message:"user loaded"
            })
+    }
+    // Add to cart
+    static addToCart= async (req,res)=>{
+        let category_id=req.params.id
+        let  enteredquantity=req.body.quantity
+        // console.log(quantity)
+        try{
+            
+            const category=await Category.findOneAndUpdate({_id:category_id},{ $inc: { quantity: -enteredquantity } })
+            console.log(category.quantity)
+            res.send({apistatus:true,data:category,message:"Added To Cart"})
+            // const Invoice=await new invoice(req.body)
+            // await Invoice .save()
+            
+
+            
+        }
+        catch(e){
+            res.status(500).send({apistatus:false,data:e.message,message:"Error"})
+        }
     }
 }
 
