@@ -8,22 +8,14 @@ const addToCartSchema = new mongoose.Schema({
         trim:true,
 
     },
-    type:{
-        type:String,
-        trim:true,
-        enum:['Men','Woman','Kids']
-    },
     quantity:{
         type:Number
     },
-    color:{
-        type:String,
-        trim:true
-    }, 
-    image:{
-        type:String,
-        
-    },
+    products:[
+        {
+      product:  {type:Number, trim:true, unique:true}
+    }
+    ]
 },
  {
     

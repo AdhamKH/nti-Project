@@ -2,6 +2,7 @@
 const exppress = require('express')
 require('dotenv').config()
 require('../DB/connection')
+const cors=require('cors')
 
 
 
@@ -18,6 +19,8 @@ const adminRoutes = require('../Routes/adminRoutes')
 app.use('/user', userRoutes)
 app.use('/admin', adminRoutes)
 
-
+app.get("/*",(req,res)=>{
+    res.status(404).send({message:"page Not found"})
+})
 
 module.exports = app

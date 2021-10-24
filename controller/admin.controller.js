@@ -1,5 +1,7 @@
 const User = require("../DB/Models/user.model")
 const Category= require("../DB/Models/category.model")
+const addtocart=require("../DB/Models/addToCart.model")
+const invoice=require("../DB/Models/invoice.model")
 class adminController{
         // show all users
         static showall=async (req,res)=>{
@@ -55,6 +57,21 @@ class adminController{
             catch(e){
                 res.status(500).send({apistatus:false,data:e.message,message:"Error"})
             }
+        }
+        // confirmOrder
+        static confirmOrder=async (req,res)=>{
+            var today = new Date()
+          let order= await addtocart.findById(req.params.id)
+           let newinvoice= await new invoice({
+               name:order.name,
+               quantity:order.quantity,
+               products:products.push(order.products),
+                 date:today.getFullYear() + ":" + (today.getMonth()+1) + ":" + today.getDate()+ ":" + today.getHours() + ":" + today.getMinutes() 
+           })
+           await newinvoice.save()
+           res.send({data:newinvoice})
+        //   let order_arr=order.products
+        //     res.send({data:order_arr})
         }
 }
 

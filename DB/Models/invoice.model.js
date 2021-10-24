@@ -9,16 +9,12 @@ const invoiceSchema = new mongoose.Schema({
     },
     quantity:{
         type:Number,
-        required:true
     },
-    color:{
-        type:String,
-        trim:true
-    }, 
-    total:{
-        type:Number,
-        trim:true
-    },
+    products:[
+        {
+      product:  {type:Number, trim:true, unique:true}
+    }
+    ],
     date:{
          type:String
         

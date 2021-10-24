@@ -35,21 +35,29 @@ class Usercontroller{
     }
     // Add to cart
     static addToCart= async (req,res)=>{
-        let category_id=req.params.id
-        let  enteredquantity=req.body.quantity
-        // console.log(quantity)
+        let addproduct= req.body.product
         try{
-            
-            const category=await Category.findOneAndUpdate({_id:category_id},{ $inc: { quantity: -enteredquantity } })
-            console.log(category.quantity)
-            res.send({apistatus:true,data:category,message:"Added To Cart"})
-            // const Invoice=await new invoice(req.body)
-            // await Invoice .save()
-            
+        let newcart=new addToCart (req.body)
+          newcart.products.push(addproduct)
+        await newcart.save()
+        res.status(200).send({apistatus:true,data:newcart,message:"Added to Cart"})
+    }
+    catch(e){
+        res.status(500).send({apistatus:false,data:e.message,message:"Error"})
+    }
 
-            
+     }
+    // add to existing cart 
+    static addtoexistingcart=async(req,res)=>{
+        let addproduct=req.body.product
+        try{
+          let cart= await addToCart.findById(req.params.id)
+            cart.products.push(addproduct)
+           await cart.save()
+           res.send({data:cart})
         }
-        catch(e){
+        catch(e)
+        {
             res.status(500).send({apistatus:false,data:e.message,message:"Error"})
         }
     }
