@@ -61,16 +61,20 @@ class adminController{
         // confirmOrder
         static confirmOrder=async (req,res)=>{
             var today = new Date()
+           
           let order= await addtocart.findById(req.params.id)
+          let order_arr=order.products
            let newinvoice= await new invoice({
                name:order.name,
                quantity:order.quantity,
-               products:products.push(order.products),
-                 date:today.getFullYear() + ":" + (today.getMonth()+1) + ":" + today.getDate()+ ":" + today.getHours() + ":" + today.getMinutes() 
+               products:order_arr,
+               
+            date:today.getFullYear() + ":" + (today.getMonth()+1) + ":" + today.getDate()+ ":" + today.getHours() + ":" + today.getMinutes() 
            })
            await newinvoice.save()
            res.send({data:newinvoice})
-        //   let order_arr=order.products
+           console.log(order_arr)
+          
         //     res.send({data:order_arr})
         }
 }

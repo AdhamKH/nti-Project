@@ -29,7 +29,7 @@ class Usercontroller{
     static profile=async (req,res)=>{
         res.status(200).send({
             apistatus:true,
-            // data:req.user ,
+            data:req.user ,
             message:"user loaded"
            })
     }
@@ -59,6 +59,17 @@ class Usercontroller{
         catch(e)
         {
             res.status(500).send({apistatus:false,data:e.message,message:"Error"})
+        }
+    }
+    static addImg = async(req, res)=>{
+        try{
+            if(!req.file) throw new Error ("file not found")
+            req.user.image = req.file.path //.replaceAll("\\", "/")    // \\  /
+            await req.user.save()
+            res.status(200).send({apiStatus:true, data: req.user, message:"profile image updated"})
+        }
+        catch(e){
+            res.status(500).send({ apiStatus:false, data:e.message, message:"error add image" })
         }
     }
 }
